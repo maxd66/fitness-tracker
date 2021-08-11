@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Workout = require("./models/user");
+const Workout = require("../../models/Workouts");
 // Routes needed to make website function properly
 //   /api/workouts Post adds workout
 //   /api/workouts/:id Put adds exercise
@@ -25,3 +25,5 @@ router.post("/api/workouts", async (req, res) => {
     res.status(400).json(error.message);
   }
 });
+
+module.exports = router;
