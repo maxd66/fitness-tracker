@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 // need property for total duration of exercises called totalDuration
 
 const WorkoutSchema = new Schema({
-  date: {
+  day: {
     type: Date,
     default: Date.now,
   },
@@ -13,15 +13,15 @@ const WorkoutSchema = new Schema({
     {
       type: {
         type: String,
-        required: "Exercise type required.",
+        // required: "Exercise type required.",
       },
       name: {
         type: String,
-        required: "Exercise name is required.",
+        // required: "Exercise name is required.",
       },
       duration: {
         type: Number,
-        required: "Exercise duration is required",
+        // required: "Exercise duration is required",
       },
       distance: Number,
       weight: Number,
@@ -30,3 +30,7 @@ const WorkoutSchema = new Schema({
     },
   ],
 });
+
+const Workout = mongoose.model("Workout", WorkoutSchema);
+
+module.exports = Workout;

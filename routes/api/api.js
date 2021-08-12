@@ -5,9 +5,17 @@ const Workout = require("../../models/Workouts");
 //   /api/workouts/:id Put adds exercise
 //   /api/workouts/range Get gets workouts in some range I have to define
 
-router.get("/api/workouts", async (req, res) => {
+// Two questions, put request not working, query works in robo
+
+router.get("/workouts", async (req, res) => {
   try {
-    const workouts = await Workout.find();
+    const workouts = await Workout.aggregate([
+      {
+        $addFields: {
+          totalDuration: { $sum: "$exercises.duration" },
+        },
+      },
+    ]);
     res.json(workouts);
   } catch (error) {
     console.log(error);
@@ -15,11 +23,38 @@ router.get("/api/workouts", async (req, res) => {
   }
 });
 
-router.post("/api/workouts", async (req, res) => {
+router.post("/workouts", async (req, res) => {
   try {
-    const { body } = req;
-    const dbWorkout = await Workout.create(body);
+    const dbWorkout = await Workout.create(req.body);
     res.json(dbWorkout);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error.message);
+  }
+});
+
+router.put("/workouts/:id", async (req, res) => {
+  try {
+    const dbWorkout = await Workout.findByIdAndUpdate(req.params.id, {
+      $push: { exercises: req.body },
+    });
+    res.json(dbWorkout);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error.message);
+  }
+});
+
+router.get("/workouts/range", async (req, res) => {
+  try {
+    const workouts = await Workout.aggregate([
+      {
+        $addFields: {
+          totalDuration: { $sum: "$exercises.duration" },
+        },
+      },
+    ]);
+    res.json(workouts);
   } catch (error) {
     console.log(error);
     res.status(400).json(error.message);
