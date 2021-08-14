@@ -15,4 +15,4 @@ There is no need for any installation, and to use, just add exercises by "contin
 The front end of this website was provided to me by UCSD Extension, and I designed the database and server routes for the backend of the application.
 I also received a little help with closing off and optimizing some of the routes from Jun Park and Vivianna Cowin, two MongoDB experts.
 
-![screenshot of my quiz page](./assets/images/fitness-tracker-graphSS.png)
+![screenshot of my fitness page](./assets/images/fitness-tracker-graphSS.png)
